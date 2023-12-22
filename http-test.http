@@ -1,0 +1,32 @@
+### get all todolist
+GET http://localhost:8080/api/todolist
+Accept: application/json
+
+### get todolsit by id
+GET http://localhost:8080/api/todolist/2
+Accept: application/json
+
+### delete todolist by id
+DELETE http://localhost:8080/api/todolist/6
+Accept: application/json
+
+### create todolist
+POST http://localhost:8080/api/todolist
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "wake",
+  "description": "wake at home"
+}
+
+### update todolist
+PUT http://localhost:8080/api/todolist/2
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "workout",
+  "description": "workout at home",
+  "isDone": true
+}

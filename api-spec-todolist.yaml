@@ -1,0 +1,256 @@
+openapi: 3.0.3
+info:
+  title: Title
+  description: Title
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /api/todolist:
+    summary : Represents a collection of todo items
+    get:
+      summary: Return a list of todo items
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    properties:
+                      id:
+                        type: integer
+                      title:
+                        type: string
+                      description:
+                        type: string
+                      isDone:
+                        type: boolean
+              examples:
+                success:
+                  value:
+                    code: 200
+                    status: OK
+                    data:
+                        - id: 1
+                          title: 'Dinner'
+                          description: 'Dinner with friends at 8pm'
+                          isDone: false
+                        - id: 2
+                          title: 'shopping'
+                          description: 'buy some food for dinner'
+                          isDone: false
+    post:
+      summary: Create a new todo item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+            examples:
+              create:
+                value:
+                  title: Swimming
+                  description: swimming at home with family
+      responses:
+        200:
+          description: Success create new todo item
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      title:
+                        type: string
+                      description:
+                        type: string
+                      isDone:
+                        type: boolean
+              examples:
+                success:
+                  value:
+                    code: 200
+                    status: OK
+                    data:
+                        id: 1
+                        title: 'Workout'
+                        description: 'Workout at 7am'
+                        isDone: false
+  /api/todolist/{todolistId}:
+    summary : Represents a todo item with id {todolistId}
+    get:
+      summary: return  a todo item with id {todolistId}
+      parameters:
+        - name: todolistId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      title:
+                        type: string
+                      description:
+                        type: string
+                      isDone:
+                        type: boolean
+              examples:
+                success:
+                  value:
+                    code: 200
+                    status: OK
+                    data:
+                      id: 1
+                      title: 'Dinner'
+                      description: 'Dinner with friends at 8pm'
+                      isDone: false
+    put:
+      summary: update a todo item with id {todolistId}
+      parameters:
+        - name: todolistId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                isDone:
+                  type: boolean
+            examples:
+              update:
+                value:
+                  title: dinner
+                  description: dinner at home with friend
+                  isDone: true
+      responses:
+        200:
+          description: success response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                      description:
+                        type: string
+                      isDone:
+                        type: boolean
+              examples:
+                success:
+                  value:
+                    code: 200
+                    status: OK
+                    data:
+                      title: dinner
+                      description: dinner at home with friend
+                      isDone: true
+    delete:
+      summary: delete a todo item with id {todolistId}
+      parameters:
+        - name: todolistId
+          in: path
+          required: true
+      responses:
+        200:
+          description: success delete a todo item
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      title:
+                        type: string
+                      description:
+                        type: string
+                      isDone:
+                        type: boolean
+
+              examples:
+                success:
+                  value:
+                    code: 200
+                    status: OK
+                    data:
+                      id: 1
+                      title: dinner
+                      description: dinner with friend
+                      isDone: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
