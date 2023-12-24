@@ -3,10 +3,16 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"todolist/controller"
+	"todolist/exception"
 )
 
-func NewRouter(todolistController controller.TodolistController) *gin.Engine {
+func NewRouter(todolistController controller.TodolistController, userController controller.UserController) *gin.Engine {
 	r := gin.Default()
+
+	r.Use(gin.CustomRecovery(exception.ErrorHandler))
+
+	r.POST("/auth/register", userController.Register)
+	r.POST("/auth/login", userController.Login)
 
 	r.GET("/api/todolist", todolistController.FindAll)
 	r.POST("/api/todolist", todolistController.Create)

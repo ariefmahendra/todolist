@@ -17,11 +17,15 @@ func main() {
 	db := config.InitializedDatabase()
 	validate := validator.New()
 
+	userRepository := repository.NewUserRepository(db)
+	userService := service.NewUserService(userRepository, db, validate)
+	userController := controller.NewUserController(userService)
+
 	todolistRepository := repository.NewTodolistRepository(db)
 	todolistService := service.NewTodolistService(todolistRepository, db, validate)
 	todolistController := controller.NewTodolistController(todolistService)
 
-	route := router.NewRouter(todolistController)
+	route := router.NewRouter(todolistController, userController)
 
 	server := http.Server{
 		Addr:           ":8080",

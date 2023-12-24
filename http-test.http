@@ -30,3 +30,24 @@ Content-Type: application/json
   "description": "workout at home",
   "isDone": true
 }
+
+### create new user
+POST http://localhost:8080/auth/register
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "arief",
+  "email": "arief@mail.com",
+  "password": "123"
+}
+
+### login user
+POST http://localhost:8080/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "arief@mail.com",
+  "password": "123"
+}

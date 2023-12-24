@@ -236,6 +236,95 @@ paths:
                       title: dinner
                       description: dinner with friend
                       isDone: true
+  /auth/register:
+    summary: register new user
+    post:
+      summary: register new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+            examples:
+              register:
+                value:
+                  name: user1
+                  email: user1@mail.com
+                  password: password1
+      responses:
+        200:
+          description: success register new user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      username:
+                        type: string
+              examples:
+                success:
+                  value:
+                    code: 200
+                    status: OK
+                    data:
+                      username: user1
+  /auth/login:
+    summary: login user
+    post:
+      summary: login user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+            examples:
+              register:
+                value:
+                  email: user1@mail.com
+                  password: password1
+      responses:
+        200:
+          description: success register new user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      username:
+                        type: string
+              examples:
+                success:
+                  value:
+                    code: 200
+                    status: OK
+                    data:
+                      username: user1
 
 
 
