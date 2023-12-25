@@ -17,7 +17,46 @@ func ErrorHandler(ctx *gin.Context, err interface{}) {
 		return
 	}
 
+	if unauthorizedError(ctx, err) {
+		return
+	}
+
+	if forbiddenError(ctx, err) {
+		return
+	}
+
 	internal(ctx, err)
+
+}
+
+func forbiddenError(ctx *gin.Context, err interface{}) bool {
+	exception, ok := err.(ForbiddenError)
+	if ok {
+		response := dto.WebResponse{
+			Code:   http.StatusForbidden,
+			Status: "FORBIDDEN",
+			Data:   exception.Error,
+		}
+
+		ctx.JSON(http.StatusForbidden, response)
+		return true
+	}
+	return false
+}
+
+func unauthorizedError(ctx *gin.Context, err interface{}) bool {
+	exception, ok := err.(UnauthorizedError)
+	if ok {
+		response := dto.WebResponse{
+			Code:   http.StatusUnauthorized,
+			Status: "UNAUTHORIZED",
+			Data:   exception.Error,
+		}
+
+		ctx.JSON(http.StatusUnauthorized, response)
+		return true
+	}
+	return false
 }
 
 func validationErrors(ctx *gin.Context, err interface{}) bool {

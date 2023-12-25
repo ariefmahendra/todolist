@@ -6,6 +6,220 @@ info:
 servers:
   - url: 'http://localhost:8080'
 paths:
+  /auth/register:
+    summary: register new user
+    post:
+      summary: register new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+            examples:
+              register:
+                value:
+                  name: user1
+                  email: user1@mail.com
+                  password: password1
+      responses:
+        200:
+          description: success register new user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      username:
+                        type: string
+              examples:
+                success:
+                  value:
+                    code: 200
+                    status: OK
+                    data:
+                      username: user1
+  /auth/login:
+    summary: login user
+    post:
+      summary: login user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+            examples:
+              register:
+                value:
+                  email: user1@mail.com
+                  password: password1
+      responses:
+        200:
+          description: success register new user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                      token:
+                        type: string
+                      scopes:
+                        type: array
+                        items:
+                          type: string
+              examples:
+                success:
+                  value:
+                    code: 200
+                    status: OK
+                    data:
+                        email: arief@mail.com
+                        token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6
+                        scopes:
+                          - todos:create
+                          - todos:read
+                          - todos:update
+                          - todos:delete
+  /api/scopes:
+    summary: create new scope
+    post:
+      summary: create new scope
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+            examples:
+              create:
+                value:
+                  name: todos:create
+      responses:
+        200:
+          description: success create new scope
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+              examples:
+                success:
+                  value:
+                    code: 200
+                    status: OK
+                    data:
+                      name: todos:create
+  /api/scopes/{scope_id}:
+    summary: delete scope by id
+    delete:
+      summary: delete scope by id
+      parameters:
+        - name: scope_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: success delete scope by id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  status:
+                    type: string
+                  data:
+                    type: string
+
+              examples:
+                success:
+                  value:
+                    code: 200
+                    status: OK
+                    data: null
+  /api/user/:user_id/scopes/:scope_id/assign:
+    summary: assign scope to user
+    get:
+      summary: assign scope to user
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: scope_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: success assign scope to user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      user_id:
+                        type: integer
+                      scope_id:
+                        type: integer
+              examples:
+                success:
+                  value:
+                    code: 200
+                    status: OK
+                    data:
+                        user_id: 1
+                        scope_id: 1
   /api/todolist:
     summary : Represents a collection of todo items
     get:
@@ -100,7 +314,7 @@ paths:
   /api/todolist/{todolistId}:
     summary : Represents a todo item with id {todolistId}
     get:
-      summary: return  a todo item with id {todolistId}
+      summary: return a todo item with id {todolistId}
       parameters:
         - name: todolistId
           in: path
@@ -236,31 +450,30 @@ paths:
                       title: dinner
                       description: dinner with friend
                       isDone: true
-  /auth/register:
-    summary: register new user
-    post:
-      summary: register new user
+  /api/todolist/:id/check:
+    put:
+      summary: check a todo item with id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
       requestBody:
         content:
-          application/json:
+          apllication/json:
             schema:
               type: object
               properties:
-                name:
-                  type: string
-                email:
-                  type: string
-                password:
-                  type: string
+                isDone:
+                  type: boolean
             examples:
-              register:
+              check:
                 value:
-                  name: user1
-                  email: user1@mail.com
-                  password: password1
+                  isDone: true
       responses:
         200:
-          description: success register new user
+          description: success check a todo item
           content:
             application/json:
               schema:
@@ -273,58 +486,24 @@ paths:
                   data:
                     type: object
                     properties:
-                      username:
-                        type: string
+                        id:
+                            type: integer
+                        title:
+                            type: string
+                        description:
+                            type: string
+                        isDone:
+                            type: boolean
               examples:
                 success:
                   value:
                     code: 200
                     status: OK
                     data:
-                      username: user1
-  /auth/login:
-    summary: login user
-    post:
-      summary: login user
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                password:
-                  type: string
-            examples:
-              register:
-                value:
-                  email: user1@mail.com
-                  password: password1
-      responses:
-        200:
-          description: success register new user
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: integer
-                  status:
-                    type: string
-                  data:
-                    type: object
-                    properties:
-                      username:
-                        type: string
-              examples:
-                success:
-                  value:
-                    code: 200
-                    status: OK
-                    data:
-                      username: user1
+                      id: 1
+                      title: dinner
+                      description: dinner with friend
+                      isDone: true
 
 
 

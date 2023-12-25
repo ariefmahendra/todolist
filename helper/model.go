@@ -31,5 +31,20 @@ func UserToResponse(userDomain domain.UserDomain) dto.UserResponse {
 		Email: userDomain.Email,
 	}
 	return userResponse
+}
+
+func ScopesToResponse(scopesDomain domain.ScopesDomain) dto.ScopesResponse {
+	scopesResponse := dto.ScopesResponse{
+		Name: scopesDomain.Name,
+	}
+	return scopesResponse
+}
+
+func AssignmentScopeToResponse(assignmentUserScope domain.AssignmentUserScope) dto.AssignmentUserScopeResponse {
+	assignmentUserScopeResponse := dto.AssignmentUserScopeResponse{
+		UserId:  assignmentUserScope.UserId,
+		ScopeId: assignmentUserScope.ScopeId,
+	}
+	return assignmentUserScopeResponse
 
 }

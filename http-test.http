@@ -1,37 +1,4 @@
-### get all todolist
-GET http://localhost:8080/api/todolist
-Accept: application/json
-
-### get todolsit by id
-GET http://localhost:8080/api/todolist/2
-Accept: application/json
-
-### delete todolist by id
-DELETE http://localhost:8080/api/todolist/6
-Accept: application/json
-
-### create todolist
-POST http://localhost:8080/api/todolist
-Accept: application/json
-Content-Type: application/json
-
-{
-  "title": "wake",
-  "description": "wake at home"
-}
-
-### update todolist
-PUT http://localhost:8080/api/todolist/2
-Accept: application/json
-Content-Type: application/json
-
-{
-  "title": "workout",
-  "description": "workout at home",
-  "isDone": true
-}
-
-### create new user
+### register new user
 POST http://localhost:8080/auth/register
 Accept: application/json
 Content-Type: application/json
@@ -50,4 +17,63 @@ Content-Type: application/json
 {
   "email": "arief@mail.com",
   "password": "123"
+}
+
+### assign scope to user
+GET http://localhost:8080/api/user/:user_id/scopes/:scope_id/assign
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJuYW1lIjoiYXJpZWYiLCJlbWFpbCI6ImFyaWVmQG1haWwuY29tIiwic2NvcGVzIjpbInRvZG9zOmNyZWF0ZSIsInRvZG9zOnJlYWQiLCJ0b2Rvczp1cGRhdGUiLCJ0b2RvczpkZWxldGUiXX0.66tp0Vlg6l3t-NsJVYBam7q9if-6prvcAEN8XHs4ZZE
+
+
+### create scope
+POST http://localhost:8080/api/scopes
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJuYW1lIjoiYXJpZWYiLCJlbWFpbCI6ImFyaWVmQG1haWwuY29tIiwic2NvcGVzIjpbInRvZG9zOmNyZWF0ZSIsInRvZG9zOnJlYWQiLCJ0b2Rvczp1cGRhdGUiLCJ0b2RvczpkZWxldGUiXX0.66tp0Vlg6l3t-NsJVYBam7q9if-6prvcAEN8XHs4ZZE
+Content-Type: application/json
+
+{
+  "name": "todos:create"
+}
+
+### delete scope
+DELETE http://localhost:8080/api/scopes/todos:read
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJuYW1lIjoiYXJpZWYiLCJlbWFpbCI6ImFyaWVmQG1haWwuY29tIiwic2NvcGVzIjpbInRvZG9zOmNyZWF0ZSIsInRvZG9zOnJlYWQiLCJ0b2Rvczp1cGRhdGUiLCJ0b2RvczpkZWxldGUiXX0.66tp0Vlg6l3t-NsJVYBam7q9if-6prvcAEN8XHs4ZZE
+
+### get all todolist
+GET http://localhost:8080/api/todolist
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJuYW1lIjoiYXJpZWYiLCJlbWFpbCI6ImFyaWVmQG1haWwuY29tIiwic2NvcGVzIjpbInRvZG9zOmNyZWF0ZSIsInRvZG9zOnJlYWQiLCJ0b2Rvczp1cGRhdGUiLCJ0b2RvczpkZWxldGUiXX0.66tp0Vlg6l3t-NsJVYBam7q9if-6prvcAEN8XHs4ZZE
+
+### get todolsit by id
+GET http://localhost:8080/api/todolist/2
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJuYW1lIjoiYXJpZWYiLCJlbWFpbCI6ImFyaWVmQG1haWwuY29tIiwic2NvcGVzIjpbInRvZG9zOmNyZWF0ZSIsInRvZG9zOnJlYWQiLCJ0b2Rvczp1cGRhdGUiLCJ0b2RvczpkZWxldGUiXX0.66tp0Vlg6l3t-NsJVYBam7q9if-6prvcAEN8XHs4ZZE
+
+### delete todolist by id
+DELETE http://localhost:8080/api/todolist/6
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJuYW1lIjoiYXJpZWYiLCJlbWFpbCI6ImFyaWVmQG1haWwuY29tIiwic2NvcGVzIjpbInRvZG9zOmNyZWF0ZSIsInRvZG9zOnJlYWQiLCJ0b2Rvczp1cGRhdGUiLCJ0b2RvczpkZWxldGUiXX0.66tp0Vlg6l3t-NsJVYBam7q9if-6prvcAEN8XHs4ZZE
+
+### create todolist
+POST http://localhost:8080/api/todolist
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJuYW1lIjoiYXJpZWYiLCJlbWFpbCI6ImFyaWVmQG1haWwuY29tIiwic2NvcGVzIjpbInRvZG9zOmNyZWF0ZSIsInRvZG9zOnJlYWQiLCJ0b2Rvczp1cGRhdGUiLCJ0b2RvczpkZWxldGUiXX0.66tp0Vlg6l3t-NsJVYBam7q9if-6prvcAEN8XHs4ZZE
+Content-Type: application/json
+
+{
+  "title": "wake",
+  "description": "wake at home"
+}
+
+### update todolist
+PUT http://localhost:8080/api/todolist/2
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJuYW1lIjoiYXJpZWYiLCJlbWFpbCI6ImFyaWVmQG1haWwuY29tIiwic2NvcGVzIjpbInRvZG9zOmNyZWF0ZSIsInRvZG9zOnJlYWQiLCJ0b2Rvczp1cGRhdGUiLCJ0b2RvczpkZWxldGUiXX0.66tp0Vlg6l3t-NsJVYBam7q9if-6prvcAEN8XHs4ZZE
+Content-Type: application/json
+
+{
+  "title": "workout",
+  "description": "workout at home",
+  "isDone": true
 }

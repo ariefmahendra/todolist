@@ -21,11 +21,19 @@ func main() {
 	userService := service.NewUserService(userRepository, db, validate)
 	userController := controller.NewUserController(userService)
 
+	scopesRepository := repository.NewScopesRepository()
+	scopesService := service.NewScopesService(scopesRepository, db, validate)
+	scopesController := controller.NewScopeController(scopesService)
+
+	assignmentRepository := repository.NewAssignmentRepository()
+	assignmentService := service.NewAssignmentService(assignmentRepository, db, validate)
+	assignmentController := controller.NewAssignmentController(assignmentService)
+
 	todolistRepository := repository.NewTodolistRepository(db)
 	todolistService := service.NewTodolistService(todolistRepository, db, validate)
 	todolistController := controller.NewTodolistController(todolistService)
 
-	route := router.NewRouter(todolistController, userController)
+	route := router.NewRouter(todolistController, userController, scopesController, assignmentController)
 
 	server := http.Server{
 		Addr:           ":8080",

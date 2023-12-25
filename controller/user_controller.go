@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"todolist/helper"
@@ -44,12 +45,20 @@ func (controller *UserControllerImpl) Login(ctx *gin.Context) {
 	err := ctx.BindJSON(&userLoginRequest)
 	helper.PanicIfError(err)
 
-	userResponse := controller.userService.Login(ctx, userLoginRequest)
+	token, scopes := controller.userService.Login(ctx, userLoginRequest)
+
+	bearerToken := fmt.Sprintf("Bearer %s", token)
+
+	loginResponse := dto.LoginUserResponse{
+		Email:  userLoginRequest.Email,
+		Token:  bearerToken,
+		Scopes: scopes,
+	}
 
 	webResponse := dto.WebResponse{
 		Code:   http.StatusOK,
 		Status: "OK",
-		Data:   userResponse,
+		Data:   loginResponse,
 	}
 
 	ctx.JSON(http.StatusOK, webResponse)

@@ -5,4 +5,5 @@ type TodolistDomain struct {
 	Title       string
 	Description string
 	IsDone      bool
+	UserId      int
 }
